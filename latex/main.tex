@@ -1,0 +1,132 @@
+% \documentclass[a4paper]{report}
+% %%%%%%%% FONT %%%%%%%%
+% \usepackage[utf8]{inputenc}
+% \usepackage[T1,T2A,T5]{fontenc}
+% %%%%%%%% MATH %%%%%%%%
+% \usepackage{amsmath}
+% \usepackage{amsthm}
+% \usepackage{a4wide,amssymb,epsfig,latexsym,array,hhline,fancyhdr}
+% \usepackage[normalem]{ulem}
+% \usepackage[export]{adjustbox}
+% \usepackage{float}
+% %%%%%%%% CODE %%%%%%%%
+% \usepackage{listings}
+% %%%%%%%% COLOR %%%%%%%%
+% \usepackage{color}
+% \usepackage{xcolor, colortbl, rotating, multirow, booktabs, bigstrut}
+% \usepackage[makeroom]{cancel}
+% \usepackage{booktabs}
+% \usepackage{alltt}
+% \usepackage[framemethod=tikz]{mdframed}
+% \usepackage{caption,subcaption}
+% \usepackage{placeins}
+% \usepackage[lined,boxed,commentsnumbered]{algorithm2e}
+% \usepackage{enumerate}
+% %%%%%%%% GRAPHIC %%%%%%%%
+% \usepackage{graphicx}
+% \usepackage{graphics}
+% \usepackage{geometry}
+% \usepackage{tikz}
+% % \usetikzlibrary{arrows,snakes,backgrounds}
+% %%%%%%%% TABLE %%%%%%%%
+% \usepackage{multicol,longtable,amscd}
+% \usepackage{tabularx, caption}
+% \usepackage{multirow}
+% \usepackage{multicol}
+% \usepackage[export]{adjustbox}
+% %%%%%%%% FORMAT %%%%%%%%
+% \usepackage{lastpage}
+% \usepackage{array}
+% \usepackage{rotating}
+% \usepackage{setspace}
+% \usepackage{epsfig}
+% \usepackage{blindtext}
+% \usepackage{enumitem}
+% %%%%%%%% HYPERREF %%%%%%%%
+% \usepackage[unicode]{hyperref}
+% \hypersetup{urlcolor = blue,linkcolor=black,citecolor=black,colorlinks=true} 
+% \usepackage{tabularray}
+% \usepackage{bm}
+% \usepackage{imakeidx}
+% \makeindex[columns=3, title=Alphabetical Index, intoc]
+% \DeclareMathOperator*{\argmin}{arg\,min}
+% \usepackage{mystyle}
+% \usepackage[inkscapeformat=png]{svg}
+% % \begin{document}
+% % \input{machine-learning.tex}
+% % \end{document}
+
+% \begin{document}
+
+% \begin{frame}
+% \frametitle{\inserttitle}
+% \framesubtitle{\insertsubtitle}
+
+% \begin{columns}
+% \begin{column}{0.5\textwidth}
+% \begin{block}{}
+% \begin{equation*}
+% y(x) = \sum \alpha_n t_n t_n^T x + \frac{1}{\sum (t_m - \sum \alpha_n t_n t_n^T x_m)}
+% \end{equation*}
+% \end{block}
+
+% % \begin{itemize}
+% % \item Vectorization: quy ước
+% % \item Xs: kích thước Ns x (M - 1), ma trận chứa Ns vectơ hỗ trợ
+% % \item Xb: kích thước Ns x (M - 1), ma trận chứa Nb vectơ dữ liệu cần dự báo nhãn
+% % \item ts: kích thước Ns x 1, vectơ chứa nhãn của Ns vectơ hỗ trợ
+% % \item \alpha_s: kích thước Ns x 1, vectơ chứa Ns giá trị biên đối ngẫu của các vectơ hỗ trợ
+% % \item as = \alpha : nhân phần tử với nhau
+% % \end{itemize}
+
+% \end{column}
+% \begin{column}{0.5\textwidth}
+% \tableofcontents
+% \end{column}
+% \end{columns}
+
+% \end{frame}
+
+% \end{document}
+
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[vietnamese]{babel}
+
+\title{Bài toán đối ngẫu}
+\subtitle{Công thức dự báo}
+% \logo{\includegraphics[width=1cm]{BK_logo.png}} % replace with your logo file
+
+\begin{document}
+\section{Công thức dự báo}
+
+\begin{frame}
+\frametitle{\inserttitle}
+\framesubtitle{\insertsubtitle}
+
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{block}{}
+\begin{equation*}
+y(x) = \sum \alpha_n t_n t_n^T x + \frac{1}{\sum (t_m - \sum \alpha_n t_n t_n^T x_m)}
+\end{equation*}
+\end{block}
+
+\begin{itemize}
+\item Vectorization: quy ước
+\item Xs: kích thước Ns x (M - 1), ma trận chứa Ns vectơ hỗ trợ
+\item Xb: kích thước Ns x (M - 1), ma trận chứa Nb vectơ dữ liệu cần dự báo nhãn
+\item ts: kích thước Ns x 1, vectơ chứa nhãn của Ns vectơ hỗ trợ
+\item s: kích thước Ns x 1, vectơ chứa Ns giá trị biên đối ngẫu của các vectơ hỗ trợ
+\item as = sts : nhân phần tử với nhau
+\end{itemize}
+
+\end{column}
+\begin{column}{0.5\textwidth}
+\tableofcontents
+\end{column}
+\end{columns}
+
+\end{frame}
+
+\end{document}

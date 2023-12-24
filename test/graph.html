@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  canvas {
+    border: 1px solid black;
+  }
+</style>
+</head>
+<body>
+<canvas id="canvas" width="600" height="400"></canvas>
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const numNodes = 10;
+const nodes = [];
+const springLength = 100;
+const k = 0.05; // Spring constant
+const damping = 0.8;
+const canvasBounds = { width: canvas.width, height: canvas.height };
+
+// Initialize nodes with random positions
+for (let i = 0; i < numNodes; i++) {
+  nodes.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    vx: 0, // Velocity in X direction
+    vy: 0, // Velocity in Y direction
+  });
+}
+
+// Helper function to calculate Euclidean distance between two points
+function distance(p1, p2) {
+  const dx = p2.x - p1.x;
+  const dy = p2.y - p1.y;
+  return Math.sqrt(dx * dx + dy * dy);
+}
+
+// Apply forces and update positions
+function updatePositions() {
+  for (let i = 0; i < numNodes; i++) {
+    const node = nodes[i];
+    let forceX = 0;
+    let forceY = 0;
+    
+    // Coulomb's repulsion
+    for (let j = 0; j < numNodes; j++) {
+      if (i !== j) {
+        const otherNode = nodes[j];
+        const d = distance(node, otherNode);
+        const directionX = (otherNode.x - node.x) / d;
+        const directionY = (otherNode.y - node.y) / d;
+        forceX -= directionX / (d * d);
+        forceY -= directionY / (d * d);
+      }
+    }
+    
+    // Hooke's attraction
+    for (let j = 0; j < numNodes; j++) {
+      if (i !== j) {
+        const otherNode = nodes[j];
+        const d = distance(node, otherNode);
+        if (d < springLength) {
+          const displacementX = otherNode.x - node.x;
+          const displacementY = otherNode.y - node.y;
+          forceX += k * displacementX;
+          forceY += k * displacementY;
+        }
+      }
+    }
+    
+    // Update velocity and position using Verlet integration
+    const ax = forceX;
+    const ay = forceY;
+    node.vx = damping * (node.vx + ax);
+    node.vy = damping * (node.vy + ay);
+    node.x += node.vx;
+    node.y += node.vy;
+    
+    // Apply bounding
+    node.x = Math.max(0, Math.min(node.x, canvasBounds.width));
+    node.y = Math.max(0, Math.min(node.y, canvasBounds.height));
+  }
+}
+
+// Rendering loop
+function render() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  // Draw edges first
+  for (let i = 0; i < numNodes; i++) {
+    const node = nodes[i];
+    for (let j = 0; j < numNodes; j++) {
+      if (i !== j) {
+        const otherNode = nodes[j];
+        const d = distance(node, otherNode);
+        if (d < springLength) {
+          ctx.beginPath();
+          ctx.moveTo(node.x, node.y);
+          ctx.lineTo(otherNode.x, otherNode.y);
+          ctx.strokeStyle = '#888';
+          ctx.stroke();
+        }
+      }
+    }
+  }
+  
+  // Draw nodes after edges
+  for (let i = 0; i < numNodes; i++) {
+    const node = nodes[i];
+    ctx.beginPath();
+    ctx.arc(node.x, node.y, 8, 0, Math.PI * 2);
+    ctx.fillStyle = '#FF5733';
+    ctx.fill();
+    ctx.strokeStyle = '#000';
+    ctx.stroke();
+  }
+  
+  requestAnimationFrame(render);
+}
+
+// Start the simulation
+function startSimulation() {
+  updatePositions();
+  render();
+}
+
+startSimulation();
+</script>
+</body>
+</html>
