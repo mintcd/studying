@@ -1,5 +1,3 @@
-"use client"
-
 import React, { ReactNode } from 'react';
 import '@styles/global.css';
 import { Inter } from 'next/font/google';
@@ -17,9 +15,9 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" rel="preload">
-      <body className="m-2 flex flex-col flex-center">
-        <Nav></Nav>
+      <body className="">
         <main className="m-16">
+          <Nav></Nav>
           {children}
         </main>
       </body>

@@ -6,7 +6,7 @@ import Latex from 'react-latex-next';
 import 'katex/dist/katex.min.css';
 import { forwardRef, RefObject } from 'react';
 
-export default function Graph() {
+export default function Topology() {
     const statements = topology.flatMap(item => item.statements)
     const dependencies = statements.flatMap((item) => item.depending.map((depended) => [depended, item.id]));
 
@@ -14,10 +14,10 @@ export default function Graph() {
         <div className='grid grid-cols-3'>
             <Xwrapper>
                 {statements.map((item) => (
-                    <Block id={item.id} item={item} includeId={true} includeName={true} />
+                    <Block key={item.id} id={item.id} item={item} includeId={true} includeName={true} />
                 ))}
-                {dependencies.map((item) => (
-                    <Xarrow startAnchor='auto' endAnchor='auto' headSize={4} start={item[0]} end={item[1]} />
+                {dependencies.map((item, index) => (
+                    <Xarrow key={index} startAnchor='auto' endAnchor='auto' headSize={4} start={item[0]} end={item[1]} />
                 ))}
             </Xwrapper>
         </div>
@@ -63,3 +63,5 @@ const Node = forwardRef<HTMLDivElement, { content: string }>(({ content }, ref) 
         </div>
     );
 });
+
+Node.displayName = "Node"
